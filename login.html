@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Smart Recruiting Platform</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: Link to external CSS file -->
+    <style>
+        /* Styling the navigation bar */
+        nav {
+            background-color: #f1f1f1; /* Light gray background */
+            border: 1px solid #ccc; /* Border around the box */
+            padding: 10px; /* Padding inside the box */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: auto; /* Auto width to fit content */
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0; /* Remove default margin */
+            display: flex;
+            gap: 20px; /* Space between the links */
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #073977;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Additional styling for the page container */
+        .container {
+            margin-top: 70px; /* Space below the navigation bar */
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="sm.html">job creation and publishing</a></li>
+                <li><a href="job script.html">job screen</a></li>
+            </ul>
+        </nav>
+
+        <h2>Login</h2>
+        <form onsubmit="return handleLogin(event)">
+            <label for="username">Username or Email</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username or email" required value="defaultUser">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="8" value="defaultPassword">
+
+            <label>
+                <input type="checkbox" name="remember"> Remember Me
+            </label>
+
+            <button type="submit">Login</button>
+
+            <div class="links">
+                <a href="forgot-password.html">Forgot Password?</a> | 
+                <a href="signup.html">Sign Up</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the values from the form fields
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Check the username and password (you can customize this logic)
+            if (username === 'narmatha526' && password === 'handball16') {
+                alert('Login successful!');
+                window.location.href = 'sm.html'; 
+            } else {
+                alert('Invalid username or password');
+            }
+        }
+    </script>
+
+</body>
+</html>

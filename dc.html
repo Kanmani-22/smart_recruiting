@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Dashboard & Custom Reports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .nav-bar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .nav-bar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .nav-bar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .section {
+            padding: 20px;
+            display: none; /* Initially hide all sections */
+        }
+        .section.active {
+            display: block; /* Show the active section */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <a href="#" onclick="showSection('dashboard')">Recruitment Dashboard</a>
+        <a href="#" onclick="showSection('custom-reports')">Custom Reports</a>
+    </div>
+
+    <!-- Recruitment Dashboard Section -->
+    <div id="dashboard" class="section active">
+        <!-- Recruitment Dashboard HTML goes here -->
+        <h1>Recruitment Dashboard</h1>
+        <div>
+            <h2>Key Metrics</h2>
+            <!-- Key Metrics, Charts, and Applications Table -->
+        </div>
+    </div>
+
+    <!-- Custom Reports Module Section -->
+    <div id="custom-reports" class="section">
+        <!-- Custom Reports Module HTML goes here -->
+        <h1>Custom Reports</h1>
+        <button onclick="createNewReport()">Create New Report</button>
+        <div>
+            <h2>Saved Reports</h2>
+            <!-- Saved Reports Table -->
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function createNewReport() {
+            // Logic to open the Create Report screen within the Custom Reports section
+            alert('Create Report screen opened!');
+        }
+    </script>
+
+</body>
+</html>

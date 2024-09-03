@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .nav-bar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .nav-bar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .nav-bar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .section {
+            padding: 20px;
+            display: none; /* Initially hide all sections */
+        }
+        .section.active {
+            display: block; /* Show the active section */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <a href="#" onclick="showSection('dashboard')">Recruitment Dashboard</a>
+        <a href="#" onclick="showSection('custom-reports')">Custom Reports</a>
+    </div>
+
+    <!-- Recruitment Dashboard Section -->
+    <div id="dashboard" class="section active">
+        <!-- Recruitment Dashboard HTML goes here -->
+        <h1>Recruitment Dashboard</h1>
+        <div>
+            <h2>Key Metrics</h2>
+            <!-- Key Metrics, Charts, and Applications Table -->
+        </div>
+    </div>
+
+    <!-- Custom Reports Module Section -->
+    <div id="custom-reports" class="section">
+        <!-- Custom Reports Module HTML goes here -->
+        <h1>Custom Reports</h1>
+        <button onclick="createNewReport()">Create New Report</button>
+        <div>
+            <h2>Saved Reports</h2>
+            <!-- Saved Reports Table -->
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function createNewReport() {
+            // Logic to open the Create Report screen within the Custom Reports section
+            alert('Create Report screen opened!');
+        }
+    </script>
+
+</head>
+<body>
+
+    <!-- Dashboard Overview Screen -->
+    <div class="header">
+        <h1>Recruitment Dashboard</h1>
+        <div class="date-range-picker">
+            <label for="date-range">Date Range:</label>
+            <input type="text" id="date-range" placeholder="Select date range" required>
+            <button id="refresh-button">Refresh</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Key Metrics</h2>
+        <div class="metrics">
+            <div class="metric">
+                <label>Total Applications</label>
+                <p id="total-applications">123</p>
+            </div>
+            <div class="metric">
+                <label>Applications in Progress</label>
+                <p id="applications-in-progress">45</p>
+            </div>
+            <div class="metric">
+                <label>Hired Candidates</label>
+                <p id="hired-candidates">30</p>
+            </div>
+            <div class="metric">
+                <label>Rejected Candidates</label>
+                <p id="rejected-candidates">48</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Charts</h2>
+        <div class="charts">
+            <div class="chart" id="applications-over-time">
+                <label>Applications Over Time</label>
+                <p>Line Chart</p>
+            </div>
+            <div class="chart" id="applications-by-source">
+                <label>Applications by Source</label>
+                <p>Pie Chart</p>
+            </div>
+            <div class="chart" id="applications-by-status">
+                <label>Applications by Status</label>
+                <p>Bar Chart</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Detailed Metrics</h2>
+        <table class="applications-table">
+            <thead>
+                <tr>
+                    <th>Applicant Name</th>
+                    <th>Position</th>
+                    <th>Source</th>
+                    <th>Date Applied</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Software Engineer</td>
+                    <td>Job Board</td>
+                    <td>2024-08-01</td>
+                    <td>In Progress</td>
+                    <td><button onclick="viewDetails()">View Details</button></td>
+                </tr>
+                <!-- Additional rows can go here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Application Details Screen -->
+    <div class="details-section" id="application-details">
+        <h3>Applicant Information</h3>
+        <p><strong>Name:</strong> John Doe</p>
+        <p><strong>Position Applied:</strong> Software Engineer</p>
+        <p><strong>Source:</strong> Job Board</p>
+        <p><strong>Date Applied:</strong> 2024-08-01</p>
+
+        <h3>Application Status</h3>
+        <p><strong>Current Status:</strong> In Progress</p>
+        <table class="status-history-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2024-08-01</td>
+                    <td>New</td>
+                    <td>Initial application received.</td>
+                </tr>
+                <tr>
+                    <td>2024-08-02</td>
+                    <td>In Progress</td>
+                    <td>Under review.</td>
+                </tr>
+                <!-- Additional rows can go here -->
+            </tbody>
+        </table>
+
+        <div class="actions-section">
+            <button onclick="updateStatus()">Update Status</button>
+            <button onclick="sendMessage()">Send Message</button>
+        </div>
+    </div>
+
+    <!-- Update Status Screen -->
+    <div class="details-section" id="update-status">
+        <h3>Update Status</h3>
+        <p><strong>Current Status:</strong> In Progress</p>
+        <div class="form-group">
+            <label for="new-status">New Status:</label>
+            <select id="new-status" required>
+                <option value="" disabled selected>Select new status</option>
+                <option value="new">New</option>
+                <option value="in-progress">In Progress</option>
+                <option value="hired">Hired</option>
+                <option value="rejected">Rejected</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="notes">Notes:</label>
+            <textarea id="notes" placeholder="Enter any notes"></textarea>
+        </div>
+        <button onclick="saveStatus()">Save Status</button>
+    </div>
+
+    <script>
+        function viewDetails() {
+            // Logic to navigate to the Application Details screen
+        }
+
+        function updateStatus() {
+            // Logic to navigate to the Update Status screen
+        }
+
+        function sendMessage() {
+            // Logic to open the Compose Message screen
+        }
+
+        function saveStatus() {
+            // Logic to save the new status and update the status history
+        }
+    </script>
+
+</body>
+
+</html>

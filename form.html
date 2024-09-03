@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Forms Management</title>
+    <button class="button view" onclick="window.location.href='interview.html';">View recruitment dashboard</button>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f4ede9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #5541e9;
+            color: white;
+        }
+
+        table td {
+            background-color: #f9f9f9;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button.edit {
+            background-color: #ffc107;
+        }
+
+        .button.delete {
+            background-color: #dc3545;
+        }
+
+        .button.edit:hover {
+            background-color: #e0a800;
+        }
+
+        .button.delete:hover {
+            background-color: #c82333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+        }
+
+        .modal-content .button {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="formManagement">
+    <h2>Application Forms Management</h2>
+    <button class="button" id="createNewForm">Create New Form</button>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Form Name</th>
+                <th>Associated Job</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="formList">
+            <!-- Example row -->
+            <tr>
+                <td>Job Application Form</td>
+                <td>Software Engineer</td>
+                <td>
+                    <button class="button edit" onclick="editForm(this)">Edit</button>
+                    <button class="button delete" onclick="deleteForm(this)">Delete</button>
+                </td>
+            </tr>
+            <!-- More rows dynamically added -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Form Creation/Editing Screen -->
+<div class="container" id="formCreation" style="display:none;">
+    <h2>Create/Edit Form</h2>
+    
+    <div class="form-group">
+        <label for="formName">Form Name</label>
+        <input type="text" id="formName" placeholder="Enter the form name" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="associatedJob">Associated Job</label>
+        <select id="associatedJob" required>
+            <option value="" disabled selected>Select a job</option>
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Product Manager">Product Manager</option>
+            <!-- Add more options dynamically if needed -->
+        </select>
+    </div>
+    
+    <h3>Form Fields</h3>
+    <button class="button" id="addField">Add Field</button>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Field Name</th>
+                <th>Field Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="fieldList">
+            <!-- Field rows dynamically added -->
+        </tbody>
+    </table>
+    
+    <button class="button" id="saveForm">Save Form</button>
+</div>
+
+<!-- Add Field Modal -->
+<div class="modal" id="fieldModal">
+    <div class="modal-content">
+        <h3>Add Field</h3>
+        <div class="form-group">
+            <label for="fieldName">Field Name</label>
+            <input type="text" id="fieldName" placeholder="Enter the field name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="fieldType">Field Type</label>
+            <select id="fieldType" required>
+                <option value="" disabled selected>Select field type</option>
+                <option value="Textbox">Textbox</option>
+                <option value="Dropdown">Dropdown</option>
+                <option value="Checkbox">Checkbox</option>
+                <option value="Radio Button">Radio Button</option>
+                <option value="Date Picker">Date Picker</option>
+            </select>
+        </div>
+        
+        <div class="form-group" id="fieldOptionsGroup" style="display:none;">
+            <label for="fieldOptions">Field Options</label>
+            <input type="text" id="fieldOptions" placeholder="Enter options separated by commas">
+        </div>
+        
+        <button class="button" id="addFieldToForm">Add Field</button>
+    </div>
+</div>
+
+<script>
+    // Show the Form Creation Screen
+    document.getElementById('createNewForm').addEventListener('click', function() {
+        document.getElementById('formManagement').style.display = 'none';
+        document.getElementById('formCreation').style.display = 'block';
+    });
+
+    // Show the Add Field Modal
+    document.getElementById('addField').addEventListener('click', function() {
+        document.getElementById('fieldModal').style.display = 'flex';
+    });
+
+    // Handle Field Type Selection to Show/Hide Field Options Input
+    document.getElementById('fieldType').addEventListener('change', function() {
+        const fieldType = this.value;
+        const fieldOptionsGroup = document.getElementById('fieldOptionsGroup');
+        if (fieldType === 'Dropdown' || fieldType === 'Checkbox' || fieldType === 'Radio Button') {
+            fieldOptionsGroup.style.display = 'block';
+        } else {
+            fieldOptionsGroup.style.display = 'none';
+        }
+    });
+
+    // Add Field to the Form
+    document.getElementById('addFieldToForm').addEventListener('click', function() {
+        const fieldName = document.getElementById('fieldName').value;
+        const fieldType = document.getElementById('fieldType').value;
+        const fieldOptions = document.getElementById('fieldOptions').value;
+
+        if (fieldName && fieldType) {
+            const fieldList = document.getElementById('fieldList');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${fieldName}</td>
+                <td>${fieldType}</td>
+                <td>
+                    <button class="button edit">Edit</button>
+                    <button class="button delete">Delete</button>
+                </td>
+            `;
+            fieldList.appendChild(row);
+            document.getElementById('fieldModal').style.display = 'none';
+        }
+    });
+
+    // Save Form and Return to Management Screen
+    document.getElementById('saveForm').addEventListener('click', function() {
+        const formName = document.getElementById('formName').value;
+        const associatedJob = document.getElementById('associatedJob').value;
+        if (formName && associatedJob) {
+            const formList = document.getElementById('formList');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${formName}</td>
+                <td>${associatedJob}</td>
+                <td>
+                    <button class="button edit" onclick="editForm(this)">Edit</button>
+                    <button class="button delete" onclick="deleteForm(this)">Delete</button>
+                </td>
+            `;
+            formList.appendChild(row);
+            document.getElementById('formCreation').style.display = 'none';
+            document.getElementById('formManagement').style.display = 'block';
+        }
+    });
+
+    // Edit Form (Placeholder Functionality)
+    function editForm(button) {
+        alert('Edit form functionality is not yet implemented.');
+    }
+
+    // Delete Form
+    function deleteForm(button) {
+        const row = button.closest('tr');
+        row.remove();
+    }
+</script>
+
+</body>
+</html>
